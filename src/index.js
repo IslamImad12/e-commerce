@@ -1,14 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { CounterContextProvider } from './Component/CounterContext';
+import { UserContextProvider } from './UserContext';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { Toaster } from 'react-hot-toast';
 
+// QueryClientProvider
+// QueryClient
+let queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <QueryClientProvider client={queryClient}>
+    <UserContextProvider>
+        <CounterContextProvider>
+        <Toaster/>
+        <App />
+        </CounterContextProvider>
+    </UserContextProvider>
+  </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
